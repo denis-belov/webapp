@@ -7,13 +7,13 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = (env, argv) => ({
 
-	// entry: './src/index.js',
+	entry: './src/index.js',
 
-	target: 'web',
+	target: 'browserlist',
 
 	resolve: {
 
-		extensions: [ '.js', '.scss' ],
+		extensions: [ '.js', '.css', '.scss' ],
 		// modules: [ './node_modules' ],
 		// descriptionFiles: [ 'package.json' ],
 	},
@@ -28,6 +28,12 @@ module.exports = (env, argv) => ({
 	module: {
 
 		rules: [
+
+			{
+				test: /\.js$/,
+				enforce: 'pre',
+				use: [ { loader: 'source-map-loader' } ],
+			},
 
 			{
 				test: /\.js$/,
@@ -80,6 +86,7 @@ module.exports = (env, argv) => ({
 					// to insert css into html
 					// { loader: 'style-loader' },
 					{ loader: 'css-loader' },
+					{ loader: 'postcss-loader' },
 					{ loader: 'sass-loader' },
 				],
 			},
@@ -140,8 +147,10 @@ module.exports = (env, argv) => ({
 
 		compress: true,
 		historyApiFallback: true,
-		contentBase: [ './src' ],
-		host: '0.0.0.0',
+		// hot: true,
+		// contentBase: [ './src' ],
+		host: 'localhost',
 		port: 8080,
+		open: true,
 	},
 });
