@@ -9,20 +9,17 @@ module.exports = (env, argv) => ({
 
 	entry: './src/index.js',
 
-	target: 'browserlist',
+	target: 'web',
 
 	resolve: {
 
 		extensions: [ '.js', '.css', '.scss' ],
-		// modules: [ './node_modules' ],
-		// descriptionFiles: [ 'package.json' ],
 	},
 
 	output: {
 
 		path: path.join(__dirname, 'build'),
 		// filename: 'index.js',
-		// publicPath: '/',
 	},
 
 	module: {
@@ -147,8 +144,6 @@ module.exports = (env, argv) => ({
 
 		compress: true,
 		historyApiFallback: true,
-		// hot: true,
-		// contentBase: [ './src' ],
 		host: 'localhost',
 		port: 8080,
 		open: true,
