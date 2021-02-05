@@ -1,5 +1,4 @@
 {
-
 	"parser": "@babel/eslint-parser",
 
 	"parserOptions": {
@@ -12,7 +11,11 @@
 		}
 	},
 
-	"extends": [ "strict" ],
+	"extends": [
+
+		"strict",
+		"strict-react/es6"
+	],
 
 	"env": {
 
@@ -38,6 +41,9 @@
 		"no-multiple-empty-lines": 0,
 		"complexity": 0,
 		"no-sync": 0,
-		"no-underscore-dangle": 0
+		"no-underscore-dangle": 0,
+
+		"react/jsx-indent": [ "error", "tab" ],
+		"react/jsx-indent-props": [ "error", "tab" ]
 	}
 }
