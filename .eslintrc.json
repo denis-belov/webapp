@@ -29,6 +29,18 @@
 		"indent": [ "error", "tab" ],
 		"func-style": [ "error", "expression" ],
 		"brace-style": [ "error", "stroustrup" ],
+		"comma-dangle": [
+
+			"error",
+
+			{
+				"arrays": "always-multiline",
+				"objects": "always-multiline",
+				"imports": "always-multiline",
+				"exports": "always-multiline",
+				"functions": "always-multiline"
+			}
+		],
 		"no-tabs": 0,
 		"no-console": 0,
 		"array-element-newline": 0,
@@ -44,6 +56,8 @@
 		"no-underscore-dangle": 0,
 
 		"react/jsx-indent": [ "error", "tab" ],
-		"react/jsx-indent-props": [ "error", "tab" ]
+		"react/jsx-indent-props": [ "error", "tab" ],
+		"react/prop-types": 0,
+		"react/jsx-no-bind": 0
 	}
 }

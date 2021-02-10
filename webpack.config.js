@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
+// const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = (env, argv) => ({
 
@@ -50,7 +50,6 @@ module.exports = (env, argv) => ({
 					// to insert css into html
 					// 'style-loader',
 					'css-loader',
-					'postcss-loader',
 					'sass-loader',
 				],
 			},
@@ -80,25 +79,30 @@ module.exports = (env, argv) => ({
 
 					{
 
-						loader: '../xgk-cpp-webpack-loader/build/index.js',
+						loader: '../xgk-cpp-webpack-loader/src/index.js',
 
 						options: {
 
-							execute: 'make -f /home/denis/reps/denis-belov/wasm-test/src/cpp/makefile',
-							target: '/home/denis/reps/denis-belov/wasm-test/src/cpp/build/js/main.js',
+							execute:
+
+								`make -f ${ path.join(__dirname, '/src/cpp/makefiles/emcc-x64/makefile') }`,
+
+							target: path.join(__dirname, '/src/cpp/build/emcc-x64/output/js/main.js'),
+
 							// total_rebuild: [
 
 							//   '/home/denis/reps/denis-belov/xgk-math/makefiles/emcc/makefile':
 							// ],
-							watch_file: [
+							// watch_file: [
 
-								'/home/denis/reps/denis-belov/xgk-math/makefiles/emcc/makefile',
-								'/home/denis/reps/denis-belov/wasm-test/src/cpp/makefile',
-							],
+							// 	'/home/denis/reps/denis-belov/xgk-math/makefiles/emcc/makefile',
+							// 	'/home/denis/reps/denis-belov/wasm-test/src/cpp/makefile',
+							// ],
 							watch_dir: [
 
-								'/home/denis/reps/denis-belov/xgk-math/src',
+								// '/home/denis/reps/denis-belov/xgk-math/src',
 								'/home/denis/reps/denis-belov/wasm-test/src/cpp/src',
+								'/home/denis/reps/denis-belov/wasm-test/src/cpp/build',
 							],
 							// entry: '/home/denis/reps/denis-belov/wasm-test/src/cpp/src/main.cpp',
 						},
@@ -129,14 +133,14 @@ module.exports = (env, argv) => ({
 			},
 		}),
 
-		new CopyPlugin({
+		// new CopyPlugin({
 
-			patterns: [
+		// 	patterns: [
 
-				{ from: 'src/models', to: 'models' },
-				{ from: 'src/textures', to: 'textures' },
-			],
-		}),
+		// 		{ from: 'src/models', to: 'models' },
+		// 		{ from: 'src/textures', to: 'textures' },
+		// 	],
+		// }),
 	],
 
 	devServer: {

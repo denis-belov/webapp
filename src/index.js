@@ -9,7 +9,8 @@ getWASMModule()
 		// log(Module);
 		// const test = Module.cwrap('_Z9qweasdv', 'number', [], []);
 
-		const test = Module.cwrap('_Z9test_funcv', 'number', [], []);
+		const test = Module.cwrap('test_func', 'number', [], []);
 
-		console.log(test());
+		console.log(test(1, 2));
+		console.log(Module);
 	});
