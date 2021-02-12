@@ -69,15 +69,60 @@
 // 	return d[1];
 // };
 
-#include <emscripten.h>
+#include <emscripten/bind.h>
+#include <iostream>
+
+
+using std::cout;
+using std::endl;
 
 
 
+// int extern_function (void);
 
-extern "C" {
 
-	float EMSCRIPTEN_KEEPALIVE test_func (const float a, const float b) {
 
-		return a + b;
+// struct S {
+
+// 	int i = 1;
+
+// 	S (void) {
+
+// 		i = 2;
+
+// 		cout << "constructed" << endl;
+// 	}
+
+// 	~S (void) {
+
+// 		cout << "destructed" << endl;
+// 	}
+// };
+
+
+
+// int _main (void) {
+
+// 	struct S s;
+
+// 	cout << extern_function() << endl;
+
+// 	return 0;
+// }
+
+double function_cpp (const double value) {
+
+	double sum = 0;
+
+	for (double i = 0; i < value; ++i) {
+
+		sum += i;
 	}
+
+	return sum;
+}
+
+EMSCRIPTEN_BINDINGS(MODULE) {
+
+	emscripten::function("function_cpp", &function_cpp);
 }

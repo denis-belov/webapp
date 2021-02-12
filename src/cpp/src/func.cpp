@@ -23,3 +23,8 @@
 
 //   _mm_store_ps((float*) data, asd);
 // };
+
+int extern_function (void) {
+
+	return 178;
+}

@@ -1,13 +1,14 @@
 // Webpack 5.* dev server's live reload doesn't work correctly, try to update all dependencies to the latest later.
 
 const path = require('path');
+// const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 // const CopyPlugin = require('copy-webpack-plugin');
 
-module.exports = (env, argv) => ({
+module.exports = (env) => ({
 
 	entry: './src/index.js',
 
@@ -32,7 +33,7 @@ module.exports = (env, argv) => ({
 				exclude: /node_modules/,
 				use:
 
-					argv.mode === 'development' ?
+					env === 'development' ?
 
 						'babel-loader' :
 
@@ -89,10 +90,6 @@ module.exports = (env, argv) => ({
 
 							target: path.join(__dirname, '/src/cpp/build/emcc-x64/output/js/main.js'),
 
-							// total_rebuild: [
-
-							//   '/home/denis/reps/denis-belov/xgk-math/makefiles/emcc/makefile':
-							// ],
 							// watch_file: [
 
 							// 	'/home/denis/reps/denis-belov/xgk-math/makefiles/emcc/makefile',
@@ -100,11 +97,9 @@ module.exports = (env, argv) => ({
 							// ],
 							watch_dir: [
 
-								// '/home/denis/reps/denis-belov/xgk-math/src',
-								'/home/denis/reps/denis-belov/wasm-test/src/cpp/src',
-								'/home/denis/reps/denis-belov/wasm-test/src/cpp/build',
+								path.join(__dirname, '/src/cpp/src'),
+								path.join(__dirname, '/src/cpp/build'),
 							],
-							// entry: '/home/denis/reps/denis-belov/wasm-test/src/cpp/src/main.cpp',
 						},
 					},
 				],
@@ -112,7 +107,7 @@ module.exports = (env, argv) => ({
 		],
 	},
 
-	devtool: argv.mode === 'development' ? 'source-map' : false,
+	devtool: env === 'development' ? 'source-map' : false,
 
 	plugins: [
 
@@ -141,6 +136,11 @@ module.exports = (env, argv) => ({
 		// 		{ from: 'src/textures', to: 'textures' },
 		// 	],
 		// }),
+
+		// new webpack.DefinePlugin({
+
+		// 	__STATIC_PATH__: '',
+		// }),
 	],
 
 	devServer: {
@@ -149,6 +149,6 @@ module.exports = (env, argv) => ({
 		historyApiFallback: true,
 		host: 'localhost',
 		port: 8080,
-		open: true,
+		// open: true,
 	},
 });
