@@ -69,16 +69,36 @@
 // 	return d[1];
 // };
 
-#include <emscripten/bind.h>
-#include <iostream>
 
 
-using std::cout;
-using std::endl;
+/**
+ * Description @xgk/cpp-webpack-load1er
+ * @param {makefile} /src/cpp/makefiles/emcc-x64/makefile
+ * @param {target} /src/cpp/build/emcc-x64/output/js/main.js
+ * @param {watch_directories} "/src/cpp/src /src/cpp/build"
+ */
+
+/**
+ * Description @xgk/cpp-webpack-loader
+ * @param {makefile} /src/cpp/makefiles/llvm-wasm-x64/makefile
+ * @param {target} /src/cpp/build/llvm-wasm-x64/output/wasm/main.wasm
+ * @param {watch_directories} "/src/cpp/src /src/cpp/build"
+ */
 
 
 
-// int extern_function (void);
+// #include <cstdint>
+// #include <iostream>
+// #include <emscripten/bind.h>
+
+
+
+// using std::cout;
+// using std::endl;
+
+
+
+int extern_function (void);
 
 
 
@@ -122,7 +142,7 @@ double function_cpp (const double value) {
 	return sum;
 }
 
-EMSCRIPTEN_BINDINGS(MODULE) {
+// EMSCRIPTEN_BINDINGS(MODULE) {
 
-	emscripten::function("function_cpp", &function_cpp);
-}
+// 	emscripten::function("function_cpp", &function_cpp);
+// }

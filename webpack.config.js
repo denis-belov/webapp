@@ -1,7 +1,7 @@
 // Webpack 5.* dev server's live reload doesn't work correctly, try to update all dependencies to the latest later.
 
 const path = require('path');
-// const webpack = require('webpack');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -76,33 +76,7 @@ module.exports = (env) => ({
 
 			{
 				test: /\.cpp$/,
-				use: [
-
-					{
-
-						loader: '../xgk-cpp-webpack-loader/src/index.js',
-
-						options: {
-
-							execute:
-
-								`make -f ${ path.join(__dirname, '/src/cpp/makefiles/emcc-x64/makefile') }`,
-
-							target: path.join(__dirname, '/src/cpp/build/emcc-x64/output/js/main.js'),
-
-							// watch_file: [
-
-							// 	'/home/denis/reps/denis-belov/xgk-math/makefiles/emcc/makefile',
-							// 	'/home/denis/reps/denis-belov/wasm-test/src/cpp/makefile',
-							// ],
-							watch_dir: [
-
-								path.join(__dirname, '/src/cpp/src'),
-								path.join(__dirname, '/src/cpp/build'),
-							],
-						},
-					},
-				],
+				use: '../xgk-cpp-webpack-loader/src/index.js',
 			},
 		],
 	},
@@ -137,10 +111,10 @@ module.exports = (env) => ({
 		// 	],
 		// }),
 
-		// new webpack.DefinePlugin({
+		new webpack.DefinePlugin({
 
-		// 	__STATIC_PATH__: '',
-		// }),
+			LOG: 'console.log',
+		}),
 	],
 
 	devServer: {

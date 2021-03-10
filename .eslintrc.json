@@ -54,6 +54,7 @@
 		"complexity": 0,
 		"no-sync": 0,
 		"no-underscore-dangle": 0,
+		"no-unused-expressions": 0,
 
 		"react/jsx-indent": [ "error", "tab" ],
 		"react/jsx-indent-props": [ "error", "tab" ],
