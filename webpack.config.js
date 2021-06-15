@@ -1,5 +1,6 @@
 // Webpack 5.* dev server's live reload doesn't work correctly, try to update all dependencies to the latest later.
 
+const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -14,28 +15,36 @@ module.exports = (env) => ({
 
 	target: 'web',
 
-	resolve: {
-
+	resolve:
+	{
 		extensions: [ '.js', '.css', '.scss' ],
 	},
 
-	output: {
-
+	output:
+	{
 		path: path.join(__dirname, 'build'),
 	},
 
-	module: {
-
-		rules: [
-
+	module:
+	{
+		rules:
+		[
 			{
 				test: /\.js$/,
 				exclude: /node_modules/,
+
 				use:
 
 					env === 'development' ?
 
-						'babel-loader' :
+						[
+							{
+								loader: 'babel-loader',
+
+								// workaround for correct transpiling glkit when linking from local directory
+								options: JSON.parse(fs.readFileSync('.babelrc')),
+							},
+						] :
 
 						[
 							'babel-loader',
@@ -45,6 +54,7 @@ module.exports = (env) => ({
 
 			{
 				test: /\.(css|scss)$/,
+
 				use: [
 
 					MiniCssExtractPlugin.loader,
@@ -57,6 +67,7 @@ module.exports = (env) => ({
 
 			{
 				test: /\.pug$/,
+
 				use: [
 
 					'html-loader',
@@ -76,49 +87,64 @@ module.exports = (env) => ({
 
 			{
 				test: /\.cpp$/,
-				use: '../xgk-cpp-webpack-loader/src/index.js',
+				use:
+				{
+					loader: '../xgk-cpp-webpack-loader/src/index.js',
+
+					options:
+					{
+						asd: 123,
+					},
+				},
 			},
 		],
 	},
 
 	devtool: env === 'development' ? 'source-map' : false,
 
-	plugins: [
-
+	plugins:
+	[
 		new CleanWebpackPlugin(),
 
 		new MiniCssExtractPlugin({ filename: 'index.css' }),
 
 		new OptimizeCSSAssetsPlugin({}),
 
-		new HtmlWebpackPlugin({
+		new HtmlWebpackPlugin(
 
-			filename: path.join(__dirname, 'build/index.html'),
-			template: path.join(__dirname, 'src/index.pug'),
-			inject: 'body',
-			minify: {
+			{
+				filename: path.join(__dirname, 'build/index.html'),
+				template: path.join(__dirname, 'src/index.pug'),
+				inject: 'body',
 
-				removeAttributeQuotes: true,
+				minify:
+				{
+					removeAttributeQuotes: true,
+				},
 			},
-		}),
+		),
 
-		// new CopyPlugin({
+		// new CopyPlugin(
 
-		// 	patterns: [
+		// 	{
+		// 		patterns:
+		// 		[
+		// 			{ from: 'src/models', to: 'models' },
+		// 			{ from: 'src/textures', to: 'textures' },
+		// 		],
+		// 	},
+		// ),
 
-		// 		{ from: 'src/models', to: 'models' },
-		// 		{ from: 'src/textures', to: 'textures' },
-		// 	],
-		// }),
+		new webpack.DefinePlugin(
 
-		new webpack.DefinePlugin({
-
-			LOG: 'console.log',
-		}),
+			{
+				LOG: 'console.log',
+			},
+		),
 	],
 
-	devServer: {
-
+	devServer:
+	{
 		compress: true,
 		historyApiFallback: true,
 		host: 'localhost',

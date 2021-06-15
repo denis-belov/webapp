@@ -1,32 +1,43 @@
 {
-	"type": "bin",
+	"build_type": "bin",
 
-	"target": "main",
+	"target_name": "main",
 
-	"includes": "$(SRC)",
+	"variables":
+	{
+		"emcc-x64":
+		{
+			"LIBS": "/home/denis/libs",
+			"REPS": "/home/denis/reps"
+		}
+	},
 
-	"objects": {
+	"include_directories": "$(SRC)",
 
-		"internal": {
+	"static_libraries":
+	[
+		"$(REPS)/denis-belov/xgk-math/build/emcc-x64/output/a/xgk-math"
+	],
 
-			"cpp": [
+	"static_libraries2":
+	[
+		"$(REPS)/denis-belov/xgk-math"
+	],
 
+	"source_files":
+	{
+		"internal":
+		{
+			"cpp":
+			[
 				{
 					"source": "$(SRC)/main.cpp",
-
-					"options": {
-
-						"headers": []
-					}
+					"headers": []
 				},
 
 				{
 					"source": "$(SRC)/func.cpp",
-
-					"options": {
-
-						"headers": []
-					}
+					"headers": []
 				}
 			]
 		}

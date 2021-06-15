@@ -1,36 +1,43 @@
 {
 	"parser": "@babel/eslint-parser",
 
-	"parserOptions": {
-
+	"parserOptions":
+	{
 		"ecmaVersion": 12,
 		"sourceType": "module",
 
-		"babelOptions": {
-			"configFile": "/home/denis/reps/denis-belov/webapp/babel.config.js"
+		"babelOptions":
+		{
+			"configFile": "./webapp/.babelrc"
 		}
 	},
 
-	"extends": [
-
+	"extends":
+	[
 		"strict",
 		"strict-react/es6"
 	],
 
-	"env": {
-
+	"env":
+	{
 		"browser": true,
 		"node": true,
 		"es2021": true
 	},
 
-	"rules": {
+	"globals":
+	{
+		"LOG": "readonly"
+	},
 
+	"rules":
+	{
 		"indent": [ "error", "tab" ],
 		"func-style": [ "error", "expression" ],
-		"brace-style": [ "error", "stroustrup" ],
-		"comma-dangle": [
-
+		"brace-style": [ "error", "allman" ],
+		"arrow-body-style": [ "error", "as-needed" ],
+		"comma-dangle":
+		[
 			"error",
 
 			{
@@ -41,6 +48,7 @@
 				"functions": "always-multiline"
 			}
 		],
+		"max-depth": 0,
 		"no-tabs": 0,
 		"no-console": 0,
 		"array-element-newline": 0,
@@ -55,10 +63,11 @@
 		"no-sync": 0,
 		"no-underscore-dangle": 0,
 		"no-unused-expressions": 0,
+		"func-names": 0,
 
-		"react/jsx-indent": [ "error", "tab" ],
 		"react/jsx-indent-props": [ "error", "tab" ],
-		"react/prop-types": 0,
-		"react/jsx-no-bind": 0
+		"react/jsx-indent": 0,
+		"react/jsx-no-bind": 0,
+		"react/prop-types": 0
 	}
 }

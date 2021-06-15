@@ -1,7 +1,7 @@
 // #include <string.h>
 // #include <iostream>
 
-// #include <emscripten.h>
+#include <emscripten.h>
 
 // #ifdef __EMSCRIPTEN__
 // 	#define __SSE__ 1
@@ -72,24 +72,28 @@
 
 
 /**
- * Description @xgk/cpp-webpack-load1er
- * @param {makefile} /src/cpp/makefiles/emcc-x64/makefile
- * @param {target} /src/cpp/build/emcc-x64/output/js/main.js
- * @param {watch_directories} "/src/cpp/src /src/cpp/build"
+ * Description @xgk/cpp-webpack-loader
+ * @param {} makefile /src/cpp/makefiles/emcc-x64/makefile
+ * @param {} target /src/cpp/build/emcc-x64/output/js/main.js
+ * @param {} watchDirectories [ "../xgk-math/src", "/src/cpp/src" ]
+ * @param {} watchFiles [ "../xgk-math/make.json", "/src/cpp/make.json" ]
+ * @param {} execute
+ * makefiler-linux emcc-x64 /home/denis/reps/denis-belov/xgk-math/make.json &&
+ * makefiler-linux emcc-x64 /home/denis/reps/denis-belov/webapp/src/cpp/make.json
  */
 
 /**
- * Description @xgk/cpp-webpack-loader
- * @param {makefile} /src/cpp/makefiles/llvm-wasm-x64/makefile
- * @param {target} /src/cpp/build/llvm-wasm-x64/output/wasm/main.wasm
- * @param {watch_directories} "/src/cpp/src /src/cpp/build"
+ * Description @xgk/cpp-webpack-loader_
+ * @param {} makefile /src/cpp/makefiles/llvm-wasm-x64/makefile
+ * @param {} target /src/cpp/build/llvm-wasm-x64/output/wasm/main.wasm
+ * @param {} watchDirectories "/src/cpp/src /src/cpp/build"
  */
 
 
 
 // #include <cstdint>
 // #include <iostream>
-// #include <emscripten/bind.h>
+#include <emscripten/bind.h>
 
 
 
@@ -99,6 +103,7 @@
 
 
 int extern_function (void);
+double function_js (void);
 
 
 
@@ -130,19 +135,37 @@ int extern_function (void);
 // 	return 0;
 // }
 
-double function_cpp (const double value) {
+// using fptr = double (*) (void);
 
-	double sum = 0;
+// fptr ptr;
 
-	for (double i = 0; i < value; ++i) {
+// void getJsFuncPtr (fptr _ptr) {
 
-		sum += i;
-	}
+// 	ptr = _ptr;
+// }
 
-	return sum;
+struct S {
+
+	int a = 0;
+
+	int b = 0;
+};
+
+int function_cpp (const double value) {
+
+	// double sum = 0;
+
+	// for (double i = 0; i < value; ++i) {
+
+	// 	sum += i;
+	// }
+
+	S s;
+
+	return s.a;
 }
 
-// EMSCRIPTEN_BINDINGS(MODULE) {
+EMSCRIPTEN_BINDINGS(MODULE) {
 
-// 	emscripten::function("function_cpp", &function_cpp);
-// }
+	emscripten::function("function_cpp", &function_cpp);
+}
