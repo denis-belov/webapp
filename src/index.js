@@ -121,11 +121,11 @@
 // 	3100,
 // );
 
-import wasm_code from './cpp/src/main.cpp';
+import getWASMModule from './cpp/src/main.cpp';
 import test from './test';
 
 LOG(test)
-LOG(wasm_code)
+LOG(getWASMModule)
 
 // const importObject = {
 // 	imports: {
@@ -184,45 +184,45 @@ LOG(wasm_code)
 
 // 		console.log(Date.now() - start2);
 
-// getWASMModule()
-// 	.then((Module) => {
+getWASMModule()
+	.then((Module) => {
 
-// 		// Module.main() is being invoked automatically if defined and binded
-
-
-// 		// Module._main();
-// 		console.log(Module.function_cpp);
+		// Module.main() is being invoked automatically if defined and binded
 
 
-
-// 		const value = Math.floor(Math.random() * 1000);
+		// Module._main();
+		console.log(Module.function_cpp);
 
 
 
-// 		const start1 = Date.now();
-
-// 		console.log(function_js(value));
-
-// 		console.log(Date.now() - start1);
+		const value = Math.floor(Math.random() * 1000);
 
 
 
-// 		const start2 = Date.now();
+		const start1 = Date.now();
 
-// 		console.log(Module.function_cpp(value));
+		console.log(function_js(value));
 
-// 		console.log(Date.now() - start2);
+		console.log(Date.now() - start1);
 
 
 
-// 		// Module.canvas = document.createElement('canvas');
-// 		// document.body.appendChild(Module.canvas);
-// 		// log(Module);
-// 		// const test = Module.cwrap('_Z9qweasdv', 'number', [], []);
+		const start2 = Date.now();
 
-// 		// const test = Module.cwrap('test_func', 'number', [], []);
+		console.log(Module.function_cpp(value));
 
-// 		// console.log(99);
+		console.log(Date.now() - start2);
 
-// 		// console.log(Module.main());
-// 	});
+
+
+		// Module.canvas = document.createElement('canvas');
+		// document.body.appendChild(Module.canvas);
+		// log(Module);
+		// const test = Module.cwrap('_Z9qweasdv', 'number', [], []);
+
+		// const test = Module.cwrap('test_func', 'number', [], []);
+
+		// console.log(99);
+
+		// console.log(Module.main());
+	});

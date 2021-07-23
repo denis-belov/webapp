@@ -12,7 +12,11 @@
 		}
 	},
 
-	"include_directories": "$(SRC)",
+	"include_directories":
+	[
+		"$(SRC)",
+		"$(REPS)"
+	],
 
 	"static_libraries":
 	[

@@ -73,13 +73,17 @@
 
 /**
  * Description @xgk/cpp-webpack-loader
- * @param {} makefile /src/cpp/makefiles/emcc-x64/makefile
- * @param {} target /src/cpp/build/emcc-x64/output/js/main.js
- * @param {} watchDirectories [ "../xgk-math/src", "/src/cpp/src" ]
- * @param {} watchFiles [ "../xgk-math/make.json", "/src/cpp/make.json" ]
  * @param {} execute
- * makefiler-linux emcc-x64 /home/denis/reps/denis-belov/xgk-math/make.json &&
- * makefiler-linux emcc-x64 /home/denis/reps/denis-belov/webapp/src/cpp/make.json
+ * node /home/denis/reps/denis-belov/c-build/src/makefiler.js emcc-x64 /home/denis/reps/denis-belov/xgk-math/make.json &&
+ * node /home/denis/reps/denis-belov/c-build/src/makefiler.js emcc-x64 /home/denis/reps/denis-belov/webapp/src/cpp/make.json &&
+ * emmake make -f /home/denis/reps/denis-belov/webapp/src/cpp/makefiles/emcc-x64/makefile
+ * @param {} target /home/denis/reps/denis-belov/webapp/src/cpp/build/emcc-x64/output/js/main.js
+ * @param {} watchDirectories [ "/home/denis/reps/denis-belov/xgk-math/src", "/home/denis/reps/denis-belov/webapp/src/cpp/src" ]
+ * @param {} watchFiles
+ * [
+ * "/home/denis/reps/denis-belov/xgk-math/make.json",
+ * "/home/denis/reps/denis-belov/webapp/src/cpp/make.json"
+ * ]
  */
 
 /**
@@ -94,6 +98,10 @@
 // #include <cstdint>
 // #include <iostream>
 #include <emscripten/bind.h>
+
+#include "denis-belov/xgk-math/src/data/mat4/mat4.h"
+
+XGK::DATA::Mat4 m;
 
 
 
@@ -144,6 +152,8 @@ double function_js (void);
 // 	ptr = _ptr;
 // }
 
+
+
 struct S {
 
 	int a = 0;
@@ -151,7 +161,7 @@ struct S {
 	int b = 0;
 };
 
-int function_cpp (const double value) {
+float function_cpp (const double value) {
 
 	// double sum = 0;
 
@@ -162,7 +172,7 @@ int function_cpp (const double value) {
 
 	S s;
 
-	return s.a;
+	return m.data[0];
 }
 
 EMSCRIPTEN_BINDINGS(MODULE) {
