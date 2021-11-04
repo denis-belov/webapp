@@ -1,0 +1,48 @@
+{
+	"variables":
+	{
+		"emcc-x64":
+		{
+			"LIBS": "/home/denis/libs",
+			"REPS": "/home/denis/reps"
+		},
+
+		"llvm-wasm-x64":
+		{
+			"LIBS": "/home/denis/libs",
+			"REPS": "/home/denis/reps"
+		}
+	},
+
+	"entries":
+	{
+		"type": "bin",
+
+		"name": "main",
+
+		"include_directories":
+		[
+			"$(SRC)",
+			"$(REPS)"
+		],
+
+		"watch_files":
+		[
+			{
+				"file": "$(SRC)/main.cpp",
+				"watch_files": []
+			},
+
+			{
+				"file": "$(SRC)/func.cpp",
+				"watch_files": []
+			},
+
+			{
+				"file": "$(REPS)/denis-belov/xgk-math/build/$(ENV)/output/$(LIB_EXT)/xgk-math.$(LIB_EXT)",
+				"watch_directories": "$(REPS)/denis-belov/xgk-math/src",
+				"do": "genmake $(ENV) $(REPS)/denis-belov/xgk-math/genmake.json"
+			}
+		]
+	}
+}

@@ -21,8 +21,7 @@
 	"env":
 	{
 		"browser": true,
-		"node": true,
-		"es2021": true
+		"node": true
 	},
 
 	"globals":
@@ -71,6 +70,7 @@
 		"react/jsx-indent": 0,
 		"react/jsx-no-bind": 0,
 		"react/jsx-equals-spacing": 0,
+		"react/jsx-key": 0,
 		"react/prop-types": 0,
 		"react/prefer-stateless-function": 0
 	}

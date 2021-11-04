@@ -1,4 +1,4 @@
-int func () {
-
+int func ()
+{
 	return 3;
 };

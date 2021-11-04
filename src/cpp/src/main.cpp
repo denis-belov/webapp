@@ -1,181 +1,116 @@
-// #include <string.h>
-// #include <iostream>
-
-#include <emscripten.h>
-
-// #ifdef __EMSCRIPTEN__
-// 	#define __SSE__ 1
-// 	#define __SSE2__ 1
-// 	#define __SSE3__ 1
-// 	#include <SSE/immintrin.h>
-// // #include <wasm_simd128.h>
-// #else
-// 	#include <immintrin.h>
-// #endif
-
-// // #include <webgpu/webgpu.h>
-// // #include "data/data.h"
-// // #include "data/vec4/vec4-128.cpp"
-// // #include "main.h"
-
-// // alignas(16) float c[4] = { 6.0, 6.0, 6.0, 6.0 };
-// // float* d;
-
-// // extern void set128_ (void*, const float, const float, const float, const float);
-
-// // extern void set128__ (__m128*, const float, const float, const float, const float);
-
-// void EMSCRIPTEN_KEEPALIVE set32 (void* data, const float x, const float y, const float z, const float w) {
-
-// 	float* _data = (float*) data;
-
-// 	_data[0] = x;
-// 	_data[1] = y;
-// 	_data[2] = z;
-// 	_data[3] = w;
-// };
-
-// void EMSCRIPTEN_KEEPALIVE set128 (void* data, const float x, const float y, const float z, const float w) {
-
-// 	_mm_store_ps((float*) data, _mm_setr_ps(x, y, z, w));
-// };
-
-// float EMSCRIPTEN_KEEPALIVE test_func (void) {
-
-// 	// float* d;
-
-// 	// XGK::DATA::VEC4::simd32();
-
-// 	// alignas(16) float c[4] = { 6.0, 6.0, 6.0, 6.0 };
-// 	// alignas(16) v128_t c;
-// 	// alignas(16) __m128 dd;
-// 	// float* d = (float*) &dd;
-
-// 	alignas(16) float d[4] = { 0.0, 0.0, 0.0, 0.0 };
-
-// 	// XGK::DATA::VEC4::set32(c, 0.0, 98.0, 3.0, 4.0);
-// 	set128(d, 1.0, 32.0, 3.0, 4.0);
-// 	// set128(d, 1.0, 32.0, 3.0, 4.0);
-// 	// set128(d, 1.0, 98.0, 3.0, 4.0);
-// 	// set128__(&dd, 1.0, 98.0, 3.0, 4.0);
-// 	// _mm_store_ps((float*) &d, _mm_set_ps(1.0, 98.0, 3.0, 4.0));
-
-// 	// memcpy(c, c, 16);
-// 	// memcpy(&d, &d, 16);
-
-// 	// std::cout << sizeof(float) << std::endl;
-
-
-// 	return d[1];
-// };
-
-
-
 /**
- * Description @xgk/cpp-webpack-loader
- * @param {} execute
- * node /home/denis/reps/denis-belov/c-build/src/makefiler.js emcc-x64 /home/denis/reps/denis-belov/xgk-math/make.json &&
- * node /home/denis/reps/denis-belov/c-build/src/makefiler.js emcc-x64 /home/denis/reps/denis-belov/webapp/src/cpp/make.json &&
- * emmake make -f /home/denis/reps/denis-belov/webapp/src/cpp/makefiles/emcc-x64/makefile
+ * Description @xgk/cpp-webpack-loade_r
+ * @param {} execute genmake emcc-x64 /home/denis/reps/denis-belov/webapp/src/cpp/genmake.json
  * @param {} target /home/denis/reps/denis-belov/webapp/src/cpp/build/emcc-x64/output/js/main.js
  * @param {} watchDirectories [ "/home/denis/reps/denis-belov/xgk-math/src", "/home/denis/reps/denis-belov/webapp/src/cpp/src" ]
  * @param {} watchFiles
  * [
- * "/home/denis/reps/denis-belov/xgk-math/make.json",
- * "/home/denis/reps/denis-belov/webapp/src/cpp/make.json"
+ * "/home/denis/reps/denis-belov/xgk-math/genmake.json",
+ * "/home/denis/reps/denis-belov/webapp/src/cpp/genmake.json"
  * ]
  */
 
 /**
- * Description @xgk/cpp-webpack-loader_
- * @param {} makefile /src/cpp/makefiles/llvm-wasm-x64/makefile
- * @param {} target /src/cpp/build/llvm-wasm-x64/output/wasm/main.wasm
- * @param {} watchDirectories "/src/cpp/src /src/cpp/build"
+ * Description @xgk/cpp-webpack-loader
+ * @param {} execute genmake llvm-wasm-x64 /home/denis/reps/denis-belov/webapp/src/cpp/genmake.json
+ * @param {} target /home/denis/reps/denis-belov/webapp/src/cpp/build/llvm-wasm-x64/output/wasm/main.wasm
+ * @param {} watchDirectories [ "/home/denis/reps/denis-belov/xgk-math/src", "/home/denis/reps/denis-belov/webapp/src/cpp/src" ]
+ * @param {} watchFiles
+ * [
+ * "/home/denis/reps/denis-belov/xgk-math/genmake.json",
+ * "/home/denis/reps/denis-belov/webapp/src/cpp/genmake.json"
+ * ]
  */
 
 
 
-// #include <cstdint>
-// #include <iostream>
-#include <emscripten/bind.h>
+// #include <emscripten.h>
+// #include <emscripten/bind.h>
+// #include <webgpu/webgpu.h>
+// #include <emscripten/html5_webgpu.h>
 
-#include "denis-belov/xgk-math/src/data/mat4/mat4.h"
+// #include "denis-belov/xgk-math/src/vec4/vec4.h"
+// #include "denis-belov/xgk-math/src/mat4/mat4.h"
 
-XGK::DATA::Mat4 m;
+// XGK::MATH::Mat4 m;
 
-
-
-// using std::cout;
-// using std::endl;
-
-
-
-int extern_function (void);
-double function_js (void);
+// WGPUInstanceDescriptor wgpu_instance_info;
+// WGPUInstance wgpu_instance;
+// WGPUDevice wgpu_device;
+// WGPUSurface wgpu_surface;
 
 
 
-// struct S {
+// // using std::cout;
+// // using std::endl;
 
-// 	int i = 1;
 
-// 	S (void) {
 
-// 		i = 2;
+// int extern_function (void);
+// double function_js (void);
 
-// 		cout << "constructed" << endl;
+
+
+// size_t function_cpp (void)
+// {
+// 	m.invns128();
+
+// 	return ((size_t (&m)) / sizeof(float));
+// }
+
+// EM_JS
+// (
+// 	void,
+// 	JS_wgpu_init,
+// 	(),
+
+// 	{
+// 		async function init ()
+// 		{
+// 			Module.preinitializedWebGPUDevice = -1;
+// 			const adapter = await navigator.gpu.requestAdapter();
+// 			const device = await adapter.requestDevice();
+// 			Module.preinitializedWebGPUDevice = device;
+// 		};
+// 		init();
 // 	}
+// );
 
-// 	~S (void) {
+// uint32_t function_cpp2 (void)
+// {
+// 	JS_wgpu_init();
 
-// 		cout << "destructed" << endl;
-// 	}
-// };
+// 	wgpu_device = emscripten_webgpu_get_device();
 
+// 	wgpu_instance = wgpuCreateInstance(&wgpu_instance_info);
 
+// 	WGPUSurfaceDescriptorFromCanvasHTMLSelector canvas_info = {};
+// 	canvas_info.chain.sType = WGPUSType_SurfaceDescriptorFromCanvasHTMLSelector;
+// 	canvas_info.selector = "canvas";
 
-// int _main (void) {
+// 	WGPUSurfaceDescriptor surface_info = {};
+// 	surface_info.nextInChain = reinterpret_cast<WGPUChainedStruct*>(&canvas_info);
 
-// 	struct S s;
+// 	wgpu_surface = wgpuInstanceCreateSurface(wgpu_instance, &surface_info);
 
-// 	cout << extern_function() << endl;
+// 	WGPUSwapChainDescriptor swapchain_info
+// 	{
+// 		// .nextInChain = nullptr,
+// 		// .label = "test",
+// 		.usage = WGPUTextureUsage_RenderAttachment,
+// 		.format = WGPUTextureFormat_RGBA8Unorm,
+// 		.width = 300,
+// 		.height = 150,
+// 		.presentMode = WGPUPresentMode_Fifo,
+// 	};
+
+// 	wgpuDeviceCreateSwapChain(wgpu_device, wgpu_surface, &swapchain_info);
 
 // 	return 0;
 // }
 
-// using fptr = double (*) (void);
-
-// fptr ptr;
-
-// void getJsFuncPtr (fptr _ptr) {
-
-// 	ptr = _ptr;
+// EMSCRIPTEN_BINDINGS (MODULE)
+// {
+// 	emscripten::function("function_cpp", function_cpp);
+// 	emscripten::function("function_cpp2", function_cpp2);
 // }
-
-
-
-struct S {
-
-	int a = 0;
-
-	int b = 0;
-};
-
-float function_cpp (const double value) {
-
-	// double sum = 0;
-
-	// for (double i = 0; i < value; ++i) {
-
-	// 	sum += i;
-	// }
-
-	S s;
-
-	return m.data[0];
-}
-
-EMSCRIPTEN_BINDINGS(MODULE) {
-
-	emscripten::function("function_cpp", &function_cpp);
-}
