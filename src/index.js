@@ -1,30 +1,33 @@
-import getWASMModule from './cpp/src/main.cpp';
+import wasm_code from './cpp/src/main.cpp';
 // import getWASMModule from './cpp/build/emcc-x64/output/js/main.js';
 
 
 
-getWASMModule()
-	.then
-	(
-		(Module) =>
-		{
-			LOG(Module)
-			// console.log(Module.function_cpp, Module.function_cpp());
+// getWASMModule()
+// 	.then
+// 	(
+// 		(Module) =>
+// 		{
+// 			LOG(Module)
+// 			// console.log(Module.function_cpp, Module.function_cpp());
 
-			// Module.HEAPF32[Module.function_cpp()] = 0;
+// 			// Module.HEAPF32[Module.function_cpp()] = 0;
 
-			// LOG(Module.HEAPF32.slice(Module.function_cpp()))
-			// LOG(Module.HEAP32.slice(Module.function_cpp()))
-			// LOG(Module.function_cpp2())
-		},
-	);
+// 			// LOG(Module.HEAPF32.slice(Module.function_cpp()))
+// 			// LOG(Module.HEAP32.slice(Module.function_cpp()))
+// 			// LOG(Module.function_cpp2())
+// 		},
+// 	);
 
 
 
-// const importObject = {
-// 	imports: {
-// 		imported_func: function(arg) {
-// 			console.log(arg);
+// const importObject =
+// {
+// 	imports:
+// 	{
+// 		imported_func (arg)
+// 		{
+// 			LOG(arg);
 // 		}
 // 	}
 // };
@@ -45,17 +48,26 @@ getWASMModule()
 
 // // LOG(getWASMModule)
 
-// const imports =
-// {
-// 	env:
-// 	{
-// 		function_js,
-// 	},
-// };
+const imports =
+{
+	env:
+	{
+		// function_js,
+	},
+};
 
 // const mod = new WebAssembly.Module(wasm_code);
 // const instance = new WebAssembly.Instance(mod, imports);
 // LOG(instance.exports)
+
+WebAssembly.compile(wasm_code)
+	.then
+	(
+		(evt) =>
+		{
+			LOG(evt)
+		},
+	);
 // instance.exports._Z12getJsFuncPtrPFdvE(function_js);
 
 // getWASMModule()

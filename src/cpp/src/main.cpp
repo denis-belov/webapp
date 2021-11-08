@@ -12,8 +12,8 @@
 
 /**
  * Description @xgk/cpp-webpack-loader
- * @param {} execute genmake llvm-wasm-x64 /home/denis/reps/denis-belov/webapp/src/cpp/genmake.json
- * @param {} target /home/denis/reps/denis-belov/webapp/src/cpp/build/llvm-wasm-x64/output/wasm/main.wasm
+ * @param {} execute genmake clang-wasm-x64 /home/denis/reps/denis-belov/webapp/src/cpp/genmake.json
+ * @param {} target /home/denis/reps/denis-belov/webapp/src/cpp/build/clang-wasm-x64/output/wasm/main.wasm
  * @param {} watchDirectories [ "/home/denis/reps/denis-belov/xgk-math/src", "/home/denis/reps/denis-belov/webapp/src/cpp/src" ]
  * @param {} watchFiles
  * [
