@@ -1,87 +1,78 @@
+import '@babel/polyfill';
+
 import wasm_code from './cpp/src/main.cpp';
-// import getWASMModule from './cpp/build/emcc-x64/output/js/main.js';
 
 
 
-// getWASMModule()
-// 	.then
-// 	(
-// 		(Module) =>
-// 		{
-// 			LOG(Module)
-// 			// console.log(Module.function_cpp, Module.function_cpp());
+window.addEventListener
+(
+	'load',
 
-// 			// Module.HEAPF32[Module.function_cpp()] = 0;
-
-// 			// LOG(Module.HEAPF32.slice(Module.function_cpp()))
-// 			// LOG(Module.HEAP32.slice(Module.function_cpp()))
-// 			// LOG(Module.function_cpp2())
-// 		},
-// 	);
-
-
-
-// const importObject =
-// {
-// 	imports:
-// 	{
-// 		imported_func (arg)
-// 		{
-// 			LOG(arg);
-// 		}
-// 	}
-// };
-
-// const function_js = () =>
-// {
-// 	// let sum = 0;
-
-// 	// for (let i = 0; i < value; ++i) {
-
-// 	// 	sum += i;
-// 	// }
-
-// 	// return sum;
-
-// 	return 7772;
-// };
-
-// // LOG(getWASMModule)
-
-const imports =
-{
-	env:
+	async () =>
 	{
-		// function_js,
+		let MEM_UI8 = null;
+
+		const wasm_module = await WebAssembly.compile(wasm_code);
+
+		const wasm_module_instance =
+			await WebAssembly.instantiate
+			(
+				wasm_module,
+
+				{
+					env:
+					{
+						__memory_base: 0,
+						__table_base: 0,
+						memory: new WebAssembly.Memory({ initial: 1 }),
+
+						memcpy (dst, src, len)
+						{
+							MEM_UI8.copyWithin(dst, src, src + len);
+
+							return dst;
+						},
+
+						printf: () => 0,
+						console_log: (x) => LOG('C/C++:', x),
+						sin: Math.sin,
+						cos: Math.cos,
+						tan: Math.tan,
+						_Znwm: () => 0, // new
+						_ZdlPv: () => 0, // delete
+						_ZSt20__throw_length_errorPKc: () => 0,
+						memset: (dst, val, len) => LOG('memset', dst, val, len),
+						putchar: () => 0,
+					},
+				},
+			);
+
+		LOG(wasm_module_instance);
+
+		MEM_UI8 = new Uint8Array(wasm_module_instance.exports.memory.buffer);
+
+		const MEM_F32 = new Float32Array(wasm_module_instance.exports.memory.buffer);
+
+		const m_addr = wasm_module_instance.exports._Z4getMv();
+
+		LOG(m_addr)
+
+		LOG(MEM_F32.slice(m_addr / 4, (m_addr / 4) + 16));
+
+		// wasm_module_instance.exports._ZN3XGK4MATH4Mat45identEv(m_addr);
+
+		wasm_module_instance.exports._ZN3XGK4MATH4Mat46qweqweEv
+		(
+			m_addr,
+			// 10,
+			// window.innerWidth / window.innerHeight,
+			// 1,
+			// 2000,
+			// 1,
+		);
+
+		wasm_module_instance.exports._Z6qweqwev();
+
+		// LOG(MEM_F32.slice(m_addr / 4, (m_addr / 4) + 16));
 	},
-};
-
-// const mod = new WebAssembly.Module(wasm_code);
-// const instance = new WebAssembly.Instance(mod, imports);
-// LOG(instance.exports)
-
-WebAssembly.compile(wasm_code)
-	.then
-	(
-		(evt) =>
-		{
-			LOG(evt)
-		},
-	);
-// instance.exports._Z12getJsFuncPtrPFdvE(function_js);
-
-// getWASMModule()
-// 	.then
-// 	(
-// 		(Module) =>
-// 		{
-// 			LOG(Module)
-// 			console.log(Module.function_cpp, Module.function_cpp());
-
-// 			Module.HEAPF32[Module.function_cpp()] = 0;
-
-// 			LOG(Module.HEAPF32.slice(Module.function_cpp()))
-// 			LOG(Module.HEAP32.slice(Module.function_cpp()))
-// 			LOG(Module.function_cpp2())
-// 		},
-// 	);
+);
